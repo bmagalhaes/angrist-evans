@@ -17,7 +17,7 @@ summ_stats = pums80 %>%
 
 summ_stats = as.data.frame(t(summ_stats))
 names(summ_stats)[1] <- "1980 PUMS"
-stargazer(summ_stats, type = "html", summary = FALSE,  out="tab1.htm", digits = 2,
+stargazer(summ_stats, summary = FALSE,  digits = 2,
           title = "TABLE 1-FERTILITY AND LABOR-SUPPLY MEASURES")
 
 # Creating Dummies
@@ -44,8 +44,8 @@ stargazer(as.data.frame(pums80[c("kidcount", "morekids", "boy1st", "boy2nd", "tw
                             "Weeks worked (weeks worked in year prior to census)",
                             "Hours/week (average hours worked per week)",
                             "Labor income (labor earnings in year prior to census, in 1995 dollars)"),
-          type = "html",  summary.stat = c("mean", "sd"),
-          title = "TABLE2-DESCRIPTIVE STATISTICS, WOMEN AGED 21-35 WITH 2 OR MORE CHILDREN", out="tab2.htm")
+          summary.stat = c("mean", "sd"),
+          title = "TABLE2-DESCRIPTIVE STATISTICS, WOMEN AGED 21-35 WITH 2 OR MORE CHILDREN")
 
 # Models for Table 3
 # worked for pay
@@ -103,7 +103,7 @@ ww_1 = lm(weeksm1 ~ 1, data = pums80)
 cov6 = vcovHC(ww_1, type = "HC1")
 robust_se6 = sqrt(diag(cov6))
 
-stargazer(wfp_ols, wfp_1, wfp_2stage, wfp_2sls, ww_ols, ww_1, ww_2stage, ww_2sls, type = "html",
+stargazer(wfp_ols, wfp_1, wfp_2stage, wfp_2sls, ww_ols, ww_1, ww_2stage, ww_2sls, 
           covariate.labels=c("More than 2 children",
                              "More than 2 children",
                              "Age",
@@ -117,7 +117,7 @@ stargazer(wfp_ols, wfp_1, wfp_2stage, wfp_2sls, ww_ols, ww_1, ww_2stage, ww_2sls
                              "Constant"), style = "qje",
           dep.var.labels   = c("Worked for pay","Weeks worked"),
           column.labels = c("OLS", "Cov Adjusted", "Manual 2SLS", "IVReg", "OLS", "Cov Adjusted", "Manual 2SLS", "IVReg"),
-          out="tab3.htm", se = list(robust_se1, robust_se2, robust_se3, robust_se4, robust_se5, robust_se6, robust_se7, robust_se8))
+          se = list(robust_se1, robust_se2, robust_se3, robust_se4, robust_se5, robust_se6, robust_se7, robust_se8))
 
 # Models for Table 4
 # hours worked
@@ -175,7 +175,7 @@ linc_1 = lm(incomem ~ 1, data = pums80)
 cov6 = vcovHC(linc_1, type = "HC1")
 robust_se6 = sqrt(diag(cov6))
 
-stargazer(hours_ols, hours_1, hours_2stage, hours_2sls, linc_ols, linc_1, linc_2stage, linc_2sls, type = "html",
+stargazer(hours_ols, hours_1, hours_2stage, hours_2sls, linc_ols, linc_1, linc_2stage, linc_2sls,
           covariate.labels=c("More than 2 children",
                              "More than 2 children",
                              "Age",
@@ -189,4 +189,4 @@ stargazer(hours_ols, hours_1, hours_2stage, hours_2sls, linc_ols, linc_1, linc_2
                              "Constant"), style = "qje",
           dep.var.labels   = c("Hours worked per week","Labor income"),
           column.labels = c("OLS", "Cov Adjusted", "Manual 2SLS", "IVReg", "OLS", "Cov Adjusted", "Manual 2SLS", "IVReg"),
-          out="tab4.htm", se = list(robust_se1, robust_se2, robust_se3, robust_se4, robust_se5, robust_se6, robust_se7, robust_se8))
+          se = list(robust_se1, robust_se2, robust_se3, robust_se4, robust_se5, robust_se6, robust_se7, robust_se8))
